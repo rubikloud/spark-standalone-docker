@@ -14,6 +14,10 @@ FROM openjdk:8-jre
 
 MAINTAINER Tw UxTLi51Nus <TwUxTLi51Nus@posteo.de>
 
+# ENVIRONMENT VARIABLES
+ENV SPARK_HOME /opt/spark
+ENV PYSPARK_PYTHON python3
+
 # RUN groupadd -r spark && useradd -r -g spark spark
 # USER spark
 
@@ -21,15 +25,14 @@ MAINTAINER Tw UxTLi51Nus <TwUxTLi51Nus@posteo.de>
 RUN apt-get update && \
     apt-get install -y --no-install-recommends python3 && \
     rm -rf /var/lib/apt/lists/* && \
-    mkdir spark && \
+    mkdir -p "${SPARK_HOME}" && \
     curl "http://www-eu.apache.org/dist/spark/spark-2.0.0/spark-2.0.0-bin-hadoop2.7.tgz" \
          -o spark.tgz && \
     curl "http://www.apache.org/dist/spark/spark-2.0.0/spark-2.0.0-bin-hadoop2.7.tgz.asc" \
          -o spark.tgz.asc && \
     curl https://www.apache.org/dist/spark/KEYS | gpg --import && \
     gpg --verify spark.tgz.asc spark.tgz && \
-    tar -xzf spark.tgz -C spark/ --strip-components=1 && \
-    mv spark /opt/ && \
+    tar -xzf spark.tgz -C "${SPARK_HOME}" --strip-components=1 && \
     rm spark.tgz spark.tgz.asc
 
 # JAVA
@@ -40,10 +43,6 @@ RUN apt-get update && \
 # - 8080 for the web ui
 # - 7077 is the default master port
 EXPOSE 7077 8080
-
-# ENVIRONMENT VARIABLES
-ENV SPARK_HOME /opt/spark
-ENV PYSPARK_PYTHON python3
 
 # COPY THE LAUNCH SCRIPT (ENTRYPOINT)
 COPY ["launch.sh", "/"]
