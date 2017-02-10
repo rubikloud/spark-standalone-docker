@@ -3,7 +3,7 @@
 # SPARK CONTAINER FOR STANDALONE CLUSTER OPERATION
 #
 # Java: OpenJDK-8-JRE
-# Spark: v2.0.0
+# Spark: v2.1.0
 #
 #
 # Dockerfile Reference
@@ -26,9 +26,9 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends python3 && \
     rm -rf /var/lib/apt/lists/* && \
     mkdir -p "${SPARK_HOME}" && \
-    curl "http://www-eu.apache.org/dist/spark/spark-2.0.0/spark-2.0.0-bin-hadoop2.7.tgz" \
+    curl "http://www-eu.apache.org/dist/spark/spark-2.1.0/spark-2.1.0-bin-hadoop2.7.tgz" \
          -o spark.tgz && \
-    curl "http://www.apache.org/dist/spark/spark-2.0.0/spark-2.0.0-bin-hadoop2.7.tgz.asc" \
+    curl "http://www-eu.apache.org/dist/spark/spark-2.1.0/spark-2.1.0-bin-hadoop2.7.tgz.asc" \
          -o spark.tgz.asc && \
     curl https://www.apache.org/dist/spark/KEYS | gpg --import && \
     gpg --verify spark.tgz.asc spark.tgz && \
