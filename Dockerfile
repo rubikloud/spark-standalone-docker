@@ -18,10 +18,6 @@
 #
 # SPARK CONTAINER FOR STANDALONE CLUSTER OPERATION
 #
-# Java: OpenJDK-8-JRE
-# Spark: v2.2.0
-#
-#
 # Dockerfile Reference
 # https://docs.docker.com/engine/reference/builder/#user
 #
